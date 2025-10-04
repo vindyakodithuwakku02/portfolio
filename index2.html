@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<!-- Add 'dark' class here initially if you want dark mode by default -->
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vindya Kodithuwakku | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Typed.js for typing animation -->
+    <script src="https://unpkg.com/typed.js@2.0.16/dist/typed.umd.js"></script>
+    <script>
+        tailwind.config = {
+            // THIS IS CRUCIAL FOR THE THEME TOGGLE TO WORK
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#0ea5e9',
+                        secondary: '#7e22ce',
+                        // Dark theme colors
+                        dark: '#0f172a',
+                        darker: '#020617',
+                        // Light theme colors
+                        light: '#f8fafc', // slate-50
+                        lighter: '#ffffff',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+        
+        /* Base styles (works for both modes) */
+        body {
+            font-family: 'Inter', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+        
+        /* Style for full-screen sections */
+        .full-screen-section {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 6rem; /* Account for nav bar */
+            padding-bottom: 6rem;
+        }
+
+        .gradient-text {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        
+        .card-hover:hover {
+            transform: translateY(-5px);
+        }
+        
+        .nav-link {
+            position: relative;
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .active::after {
+            width: 100%;
+        }
+        
+        .skill-progress {
+            height: 100%;
+            border-radius: 4px;
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: width 1s ease-in-out;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(90deg, #0ea5e9, #7e22ce);
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(14, 165, 233, 0.3);
+        }
+        
+        .social-icon {
+            transition: all 0.3s ease;
+        }
+        
+        .social-icon:hover {
+            transform: translateY(-3px);
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        
+        .floating {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes pulse-aura {
+            0%, 100% { transform: scale(1); opacity: 0.20; }
+            50% { transform: scale(1.05); opacity: 0.35; }
+        }
+        .aura {
+            animation: pulse-aura 5s ease-in-out infinite;
+        }
+
+        /* --- Dark Mode Styles --- */
+        .dark body { background-color: #0f172a; color: #e2e8f0; }
+        .dark .nav-bg { background-color: rgba(2, 6, 23, 0.8); }
+        .dark .section-bg-darker { background-color: #020617; }
+        .dark .section-bg-dark { background-color: #0f172a; }
+        .dark .card-bg { background-color: #1e293b; }
+        .dark .project-card-bg { background: linear-gradient(145deg, #1e293b, #0f172a); }
+        .dark .shadow-custom { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); }
+        .dark .project-shadow-custom { box-shadow: 5px 5px 15px rgba(2, 6, 23, 0.5), -5px -5px 15px rgba(30, 41, 59, 0.5); }
+        .dark .input-bg { background-color: #1e293b; border: 1px solid #334155; }
+        .dark .input-bg:focus { border-color: #0ea5e9; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2); }
+        .dark .text-main { color: #e2e8f0; }
+        .dark .text-secondary { color: #94a3b8; }
+        .dark .skill-bar-bg { background-color: #1e293b; }
+
+
+        /* --- Light Mode Styles --- */
+        .light body { background-color: #f8fafc; color: #0f172a; }
+        .light .nav-bg { background-color: rgba(255, 255, 255, 0.8); }
+        .light .section-bg-darker { background-color: #f1f5f9; }
+        .light .section-bg-dark { background-color: #ffffff; }
+        .light .card-bg { background-color: #ffffff; }
+        .light .project-card-bg { background: #ffffff; }
+        .light .shadow-custom { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.07); }
+        .light .project-shadow-custom { box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        .light .input-bg { background-color: #e2e8f0; border: 1px solid #cbd5e1; }
+        .light .input-bg:focus { border-color: #0ea5e9; box-shadow: 0 0 0 2px rgba(14, 165, 233, 0.2); }
+        .light .text-main { color: #0f172a; }
+        .light .text-secondary { color: #475569; }
+        .light .skill-bar-bg { background-color: #e2e8f0; }
+
+        /* Smooth transition for theme change elements */
+        .nav-bg, .section-bg-darker, .section-bg-dark, .card-bg, .project-card-bg, .input-bg, .text-main, .text-secondary {
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="fixed w-full nav-bg backdrop-blur-sm z-50 shadow-lg">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <a href="#" class="text-2xl font-bold gradient-text">Portfolio</a>
+
+                <!-- Desktop Menu -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="nav-link active text-main">Home</a>
+                    <a href="#about" class="nav-link text-main">About</a>
+                    <a href="#skills" class="nav-link text-main">Skills</a>
+                    <a href="#projects" class="nav-link text-main">Projects</a>
+                    <a href="#contact" class="nav-link text-main">Contact</a>
+                    <!-- Theme Toggle Button -->
+                    <button id="theme-toggle" class="text-xl w-10 h-10 flex items-center justify-center rounded-full focus:outline-none text-main">
+                        <i id="theme-toggle-dark-icon" class="fas fa-moon"></i>
+                        <i id="theme-toggle-light-icon" class="fas fa-sun"></i>
+                    </button>
+                </div>
+                
+                 <!-- Mobile menu button -->
+                <div class="md:hidden flex items-center">
+                     <!-- Theme Toggle Button -->
+                    <button id="theme-toggle-mobile" class="text-xl w-10 h-10 flex items-center justify-center rounded-full focus:outline-none mr-2 text-main">
+                        <i id="theme-toggle-dark-icon-mobile" class="fas fa-moon"></i>
+                        <i id="theme-toggle-light-icon-mobile" class="fas fa-sun"></i>
+                    </button>
+                    <button id="menu-toggle" class="text-main focus:outline-none">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 pb-2">
+                <a href="#home" class="block py-2 nav-link active text-main">Home</a>
+                <a href="#about" class="block py-2 nav-link text-main">About</a>
+                <a href="#skills" class="block py-2 nav-link text-main">Skills</a>
+                <a href="#projects" class="block py-2 nav-link text-main">Projects</a>
+                <a href="#contact" class="block py-2 nav-link text-main">Contact</a>
+            </div>
+        </div>
+    </nav>
+    
+    <main>
+        <!-- Hero Section -->
+        <section id="home" class="full-screen-section">
+            <div class="container mx-auto px-6 flex flex-col md:flex-row items-center justify-between gap-12">
+                <div class="md:w-1/2 text-center md:text-left">
+                    <h1 class="text-4xl sm:text-5xl md:text-6xl font-bold mb-4 text-main">Hi, I'm <span class="gradient-text">Vindya Kodithuwakku</span></h1>
+                    <h2 class="text-2xl md:text-3xl font-semibold mb-6 text-main"><span id="typing-subtitle"></span></h2>
+                    <p class="text-lg mb-8 text-secondary max-w-lg mx-auto md:mx-0">
+                        I build exceptional digital experiences that are fast, accessible, and visually appealing. 
+                        Let's create something amazing together.
+                    </p>
+                    <div class="flex space-x-4 justify-center md:justify-start">
+                        <a href="#contact" class="px-6 py-3 rounded-full btn-primary font-medium">Hire Me</a>
+                        <a href="#projects" class="px-6 py-3 rounded-full border border-primary text-primary font-medium hover:bg-primary/10 transition">View Work</a>
+                    </div>
+                    <div class="flex mt-8 space-x-4 justify-center md:justify-start">
+                        <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-primary shadow-custom">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-blue-600 shadow-custom">
+                            <i class="fab fa-linkedin-in"></i>
+                        </a>
+                        <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-blue-400 shadow-custom">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-pink-600 shadow-custom">
+                            <i class="fab fa-dribbble"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-center">
+                    <div class="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+                        <div class="absolute inset-0 rounded-full bg-gradient-to-br from-primary to-secondary blur-xl aura"></div>
+                        <img src="Images/rehana.jpeg" 
+                             alt="Profile" 
+                             class="relative w-full h-full object-cover rounded-full border-4 dark:border-slate-800 border-white floating"
+                             onerror="this.src='https://placehold.co/400x400/0f172a/FFFFFF?text=Vindya'">
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- About Section -->
+        <section id="about" class="full-screen-section section-bg-darker">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-main">About <span class="gradient-text">Me</span></h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+                </div>
+                
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="md:w-1/3 mb-8 md:mb-0 flex justify-center">
+                        <div class="relative w-64 h-64">
+                            <div class="absolute inset-0 rounded-2xl bg-gradient-to-br from-primary to-secondary blur-xl opacity-20"></div>
+                            <img src="https://placehold.co/600x600/0f172a/e2e8f0?text=About+Me" 
+                                 alt="About" 
+                                 class="relative w-full h-full object-cover rounded-2xl border-4 dark:border-slate-800 border-white shadow-custom">
+                        </div>
+                    </div>
+                    
+                    <div class="md:w-2/3 md:pl-12 text-center md:text-left">
+                        <h3 class="text-2xl font-bold mb-6 text-main">Who am I?</h3>
+                        <p class="text-secondary mb-6">
+                            I'm a passionate and driven undergraduate from Sabaragamuwa University of Sri Lanka, following a degree in Computing & Information Systems. I thrive on challenges and am constantly seeking opportunities to learn and expand my skillset. My goal is to create web applications that are not only functional but also provide a beautiful and intuitive user experience.
+                        </p>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8 text-left">
+                            <div class="sm:text-left">
+                                <h4 class="font-semibold mb-2 text-main">Name: <span class="text-secondary font-normal">Vindya Kodithuwakku</span></h4>
+                                <h4 class="font-semibold mb-2 text-main">Email: <span class="text-secondary font-normal">vindya.k@example.com</span></h4>
+                            </div>
+                            <div class="sm:text-left">
+                                <h4 class="font-semibold mb-2 text-main">Education: <span class="text-secondary font-normal">Computing & Information Systems</span></h4>
+                                <h4 class="font-semibold mb-2 text-main">Location: <span class="text-secondary font-normal">Sabaragamuwa University, SL</span></h4>
+                            </div>
+                        </div>
+                        
+                        <div class="flex space-x-4 justify-center md:justify-start">
+                            <a href="#" class="px-6 py-3 rounded-full btn-primary font-medium">Download CV</a>
+                            <a href="#contact" class="px-6 py-3 rounded-full border border-primary text-primary font-medium hover:bg-primary/10 transition">Contact Me</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Skills Section -->
+        <section id="skills" class="full-screen-section section-bg-dark">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-main">My <span class="gradient-text">Skills</span></h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-main">Technical Skills</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">HTML/CSS</span><span class="text-main">95%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 95%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">JavaScript</span><span class="text-main">90%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">React</span><span class="text-main">85%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">Node.js</span><span class="text-main">80%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 80%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 text-main">Professional Skills</h3>
+                        <div class="space-y-6">
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">Communication</span><span class="text-main">90%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 90%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">Teamwork</span><span class="text-main">85%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 85%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">Problem Solving</span><span class="text-main">95%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 95%"></div></div>
+                            </div>
+                            <div>
+                                <div class="flex justify-between mb-2"><span class="font-medium text-main">Creativity</span><span class="text-main">75%</span></div>
+                                <div class="w-full skill-bar-bg rounded-full h-2.5"><div class="skill-progress h-2.5 rounded-full" style="width: 75%"></div></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-16">
+                    <h3 class="text-2xl font-bold mb-8 text-center text-main">Tools & <span class="gradient-text">Technologies</span></h3>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-html5 text-4xl text-orange-500 mb-2"></i><span class="text-main">HTML5</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-css3-alt text-4xl text-blue-500 mb-2"></i><span class="text-main">CSS3</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-js text-4xl text-yellow-400 mb-2"></i><span class="text-main">JavaScript</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-react text-4xl text-blue-400 mb-2"></i><span class="text-main">React</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-node-js text-4xl text-green-500 mb-2"></i><span class="text-main">Node.js</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fas fa-database text-4xl text-blue-300 mb-2"></i><span class="text-main">MongoDB</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-git-alt text-4xl text-orange-600 mb-2"></i><span class="text-main">Git</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-npm text-4xl text-red-500 mb-2"></i><span class="text-main">npm</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-sass text-4xl text-pink-500 mb-2"></i><span class="text-main">Sass</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-figma text-4xl text-purple-500 mb-2"></i><span class="text-main">Figma</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fas fa-terminal text-4xl text-gray-300 mb-2"></i><span class="text-main">VS Code</span>
+                        </div>
+                        <div class="flex flex-col items-center p-6 card-bg rounded-lg card-hover shadow-custom">
+                            <i class="fab fa-linux text-4xl text-main mb-2"></i><span class="text-main">Linux</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Projects Section -->
+        <section id="projects" class="full-screen-section section-bg-darker">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-16">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4 text-main">My <span class="gradient-text">Projects</span></h2>
+                    <div class="w-20 h-1 bg-gradient-to-r from-primary to-secondary mx-auto"></div>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="project-card-bg rounded-xl overflow-hidden card-hover project-shadow-custom">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Project 1" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-main">E-commerce Platform</h3>
+                            <p class="text-secondary mb-4">A full-featured e-commerce platform built with React, Node.js, and MongoDB.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">React</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">Node.js</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">MongoDB</span>
+                            </div>
+                            <div class="flex space-x-3"><a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i> Live Demo</a><a href="#" class="text-primary hover:text-secondary"><i class="fab fa-github"></i> Code</a></div>
+                        </div>
+                    </div>
+                    <div class="project-card-bg rounded-xl overflow-hidden card-hover project-shadow-custom">
+                        <img src="https://images.unsplash.com/photo-1555421689-3f034debb7a6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Project 2" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-main">Task Management App</h3>
+                            <p class="text-secondary mb-4">A productivity app for managing tasks with drag-and-drop functionality.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">React</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">Firebase</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">TailwindCSS</span>
+                            </div>
+                            <div class="flex space-x-3"><a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i> Live Demo</a><a href="#" class="text-primary hover:text-secondary"><i class="fab fa-github"></i> Code</a></div>
+                        </div>
+                    </div>
+                    <div class="project-card-bg rounded-xl overflow-hidden card-hover project-shadow-custom">
+                        <img src="https://images.unsplash.com/photo-1522542550221-31fd19575a2d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Project 3" class="w-full h-48 object-cover">
+                        <div class="p-6">
+                            <h3 class="text-xl font-bold mb-2 text-main">Social Media Dashboard</h3>
+                            <p class="text-secondary mb-4">Analytics dashboard for social media metrics with real-time updates.</p>
+                            <div class="flex flex-wrap gap-2 mb-4">
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">Next.js</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">Chart.js</span>
+                                <span class="px-3 py-1 card-bg rounded-full text-sm text-secondary">TypeScript</span>
+                            </div>
+                            <div class="flex space-x-3"><a href="#" class="text-primary hover:text-secondary"><i class="fas fa-external-link-alt"></i> Live Demo</a><a href="#" class="text-primary hover:text-secondary"><i class="fab fa-github"></i> Code</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+        <!-- Contact Section - UPDATED TO YOUR PREFERRED DESIGN -->
+        <section id="contact" class="full-screen-section section-bg-dark">
+            <div class="container mx-auto px-6">
+                <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-16">
+                    <!-- Left Side: Contact Info -->
+                    <div class="md:w-1/2 w-full text-center md:text-left">
+                        <h2 class="text-3xl md:text-4xl font-bold mb-4 text-main">Contact Information</h2>
+                        <p class="text-secondary mb-8">
+                            Feel free to reach out to me for any questions or opportunities. I'm always open to discussing new projects, creative ideas or opportunities to be part of your vision.
+                        </p>
+                        <!-- Added Phone -->
+                        <div class="flex items-center justify-center md:justify-start mb-6">
+                            <i class="fas fa-phone text-primary text-2xl mr-4 w-8 text-center"></i>
+                            <div>
+                                <h3 class="text-xl font-bold text-main">Phone</h3>
+                                <p class="text-secondary">+94 XX XXX XXXX</p>
+                            </div>
+                        </div>
+                        <h3 class="text-2xl font-bold mb-4 text-main mt-8">Follow Me</h3>
+                        <div class="flex justify-center md:justify-start space-x-4">
+                            <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-primary shadow-custom">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-blue-600 shadow-custom">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-blue-400 shadow-custom">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                             <a href="#" class="social-icon text-xl w-10 h-10 flex items-center justify-center rounded-full card-bg hover:bg-pink-600 shadow-custom">
+                                <i class="fab fa-dribbble"></i>
+                            </a>
+                        </div>
+                    </div>
+    
+                    <!-- Right Side: Form -->
+                    <div class="md:w-1/2 w-full">
+                         <form action="#" class="space-y-6 p-8 md:p-10 rounded-lg card-bg shadow-custom">
+                            <h3 class="text-2xl font-bold text-main mb-6 text-center">Send me a message</h3>
+                            <div class="flex flex-col sm:flex-row gap-6">
+                               <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg input-bg focus:outline-none text-main">
+                               <input type="email" placeholder="Your Email" class="w-full p-3 rounded-lg input-bg focus:outline-none text-main">
+                            </div>
+                            <input type="text" placeholder="Subject" class="w-full p-3 rounded-lg input-bg focus:outline-none text-main">
+                            <textarea placeholder="Message" rows="5" class="w-full p-3 rounded-lg input-bg focus:outline-none text-main"></textarea>
+                            <div class="text-center">
+                                <button type="submit" class="w-full px-8 py-3 rounded-full btn-primary font-medium">
+                                    Send Message
+                                    <i class="fas fa-paper-plane ml-2"></i>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="py-8 section-bg-darker">
+        <div class="container mx-auto px-6 text-center text-secondary">
+             <div class="flex justify-center space-x-6 mb-4">
+                <a href="#" class="social-icon text-xl"><i class="fab fa-github"></i></a>
+                <a href="#" class="social-icon text-xl"><i class="fab fa-linkedin-in"></i></a>
+                <a href="#" class="social-icon text-xl"><i class="fab fa-twitter"></i></a>
+                <a href="#" class="social-icon text-xl"><i class="fab fa-dribbble"></i></a>
+            </div>
+            <p>Designed and Developed by Vindya Kodithuwakku</p>
+            <p>&copy; 2025 Vindya Kodithuwakku. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+    <button id="back-to-top" class="hidden fixed bottom-5 right-5 w-12 h-12 bg-primary text-white rounded-full flex items-center justify-center shadow-lg hover:bg-sky-600 transition">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    
+    <script>
+        // --- THEME SWITCHER LOGIC ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleMobile = document.getElementById('theme-toggle-mobile');
+        const darkIcon = document.getElementById('theme-toggle-dark-icon');
+        const lightIcon = document.getElementById('theme-toggle-light-icon');
+        const darkIconMobile = document.getElementById('theme-toggle-dark-icon-mobile');
+        const lightIconMobile = document.getElementById('theme-toggle-light-icon-mobile');
+
+        // Check for saved theme in localStorage
+        if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        } else {
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }
+
+        function updateIcons() {
+            if (document.documentElement.classList.contains('dark')) {
+                darkIcon.classList.add('hidden');
+                lightIcon.classList.remove('hidden');
+                darkIconMobile.classList.add('hidden');
+                lightIconMobile.classList.remove('hidden');
+            } else {
+                darkIcon.classList.remove('hidden');
+                lightIcon.classList.add('hidden');
+                darkIconMobile.classList.remove('hidden');
+                lightIconMobile.classList.add('hidden');
+            }
+        }
+        
+        updateIcons(); // Set initial icon state
+
+        function toggleTheme() {
+            document.documentElement.classList.toggle('dark');
+            document.documentElement.classList.toggle('light');
+            if (document.documentElement.classList.contains('dark')) {
+                localStorage.setItem('color-theme', 'dark');
+            } else {
+                localStorage.setItem('color-theme', 'light');
+            }
+            updateIcons();
+        }
+
+        themeToggle.addEventListener('click', toggleTheme);
+        themeToggleMobile.addEventListener('click', toggleTheme);
+
+
+        // --- Mobile menu toggle ---
+        const menuToggle = document.getElementById('menu-toggle');
+        const mobileMenu = document.getElementById('mobile-menu');
+        menuToggle.addEventListener('click', () => { mobileMenu.classList.toggle('hidden'); });
+
+        // --- Active nav link on scroll ---
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a.nav-link');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (pageYOffset >= sectionTop - 70) { current = section.getAttribute('id'); }
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href').substring(1) === current) { link.classList.add('active'); }
+            });
+        });
+
+        // --- Back to top button ---
+        const backToTopButton = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) { backToTopButton.classList.remove('hidden'); } 
+            else { backToTopButton.classList.add('hidden'); }
+        });
+        backToTopButton.addEventListener('click', () => { window.scrollTo({ top: 0, behavior: 'smooth' }); });
+        
+        // --- Animate skill bars on scroll ---
+        const skillsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting){
+                    const skillProgressBars = entry.target.querySelectorAll('.skill-progress');
+                    skillProgressBars.forEach(bar => {
+                        bar.style.width = bar.getAttribute('style').split('width: ')[1];
+                    });
+                }
+            });
+        }, { threshold: 0.5 });
+        const skillsSection = document.getElementById('skills');
+        if (skillsSection) skillsObserver.observe(skillsSection);
+        
+        // --- Typing animation for subtitle ---
+        new Typed('#typing-subtitle', {
+            strings: ['Frontend Developer', 'Creative Coder', 'Problem Solver'],
+            typeSpeed: 70,
+            backSpeed: 50,
+            loop: true,
+            startDelay: 300,
+        });
+    </script>
+</body>
+</html>
+
